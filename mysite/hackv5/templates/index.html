@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TZINGA - Byld Hackathon v5 </title>
+    <link rel="shortcut icon"
+      href="{% static '/favicon.jpg' %">
+    <script>
+        $('input[type="file"]').inputfile({
+        uploadText: '<span class="glyphicon glyphicon-upload"></span> Select a file',
+        removeText: '<span class="glyphicon glyphicon-trash"></span>',
+        restoreText: '<span class="glyphicon glyphicon-remove"></span>',
+         
+        uploadButtonClass: 'btn btn-primary',
+        removeButtonClass: 'btn btn-default'
+        });
+    </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'hackv5/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'hackv5/css/dc.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'hackv5/css/landing-page.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'hackv5/font-awesome-4.1.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- changes !-->
+    <link href="http://vjs.zencdn.net/4.7/video-js.css" rel="stylesheet">
+	<script href="http://vjs.zencdn.net/4.7/video.js"></script>
+	<style type="text/css">
+	  .vjs-default-skin { color: #fdfcfc; }
+	  .vjs-default-skin .vjs-play-progress,
+	  .vjs-default-skin .vjs-volume-level { background-color: #ebf2f5 }
+	  .vjs-default-skin .vjs-control-bar,
+	  .vjs-default-skin .vjs-big-play-button { background: rgba(230,204,204,0.14) }
+	  .vjs-default-skin .vjs-slider { background: rgba(230,204,204,0.04666666666666667) }
+	  .vjs-default-skin .vjs-control-bar { font-size: 68% }
+	</style>
+	<!-- changes !-->
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" >
+        <div class="container" >
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" >
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/hackv5/" style="letter-spacing:2px">TZINGA</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="color:#ffffff;">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/hackv5/attendence/">Attendance</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/hackv5/mess/">Mess</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    
+    
+    <br>
+    <br>
+    <br>
+    <!-- Header -->
+    <!-- /.intro-header -->
+
+    <!-- Page Content -->
+    <div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <br>
+                    
+                    <div class="clearfix"></div>
+                    <p style="text-align:center;font-size:24px;font-weight:800;letter-spacing:4px;color:#888;margin-bottom:-200px">Data Tells A Story</p>
+                    
+                   
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12">
+                
+                        <img src="/static/main.jpg" width="100%" height="500px" />
+
+                 </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+        <br>
+    </div>
+
+    <div class="content-section-b" style="background-color:#e2e4e6">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="col-sm-5">
+                        <a href="/hackv5/attendence/"><img src="/static/attend.png" style="border-radius:100%" width="100%" height="100%" /></a>
+                        <p style="font-size:16px;font-weight:400;letter-spacing:1px;text-align:center">
+                        <font style="font-size:20px;font-weight:600">Get Attendance Statistics</font><br>
+Keep a Track of Attendance Statistics<br>
+
+It provides a Visual Representation of the number of students attending the class.A cool way to get your data represented graphically in order to find out the variation in the weekly attendance.
+                        </p>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-5" >
+                        <a href="/hackv5/mess/"><img src="/static/mess.jpg"  style="margin-top:20px;margin-bottom:20px;border-radius:100%"  width="400px" height="400px" /></a>
+                        <p style="font-size:16px;font-weight:400;letter-spacing:1px;text-align:center">
+                        <font style="font-size:20px;font-weight:600">Get Mess Statistics</font><br>
+Get Mess Coupon Usage Statistics<br>
+
+It provides a Visual Representation of the number of Mess Coupons used. Get the number of coupons used on a daily basis and accordingly control the mess food-consumption on the basis of the graphs plotted on with the information provided.
+
+
+                        </p>
+                    </div>
+                
+                        
+
+                 </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                  <p style="font-size:16px;font-weight:400;letter-spacing:2px;color:#888"><font style="color:rgba(0,0,0,0.7)">+91-8800817045</font> <br><a href="" class="maillink" target="blank">hello@tzinga.com</a><br><a href="" class="maillink" target="blank">hello@olalala.com</a> </p>
+                </div>
+                <div style="margin-left:40px;" class="col-lg-1"></div>
+                <div class="col-lg-5">
+                  <p style="font-size:16px;font-weight:400;letter-spacing:2px;color:rgba(0,0,0,0.7);">
+					C-417, Boys Hostel, IIIT - Delhi <br>Okhla Phase -3  Industrial area,<br>
+					New Delhi, India 110020</p>
+                </div>
+                
+                <div class="col-lg-2">
+                  <p style="font-size:16px;font-weight:400;letter-spacing:1px;color:rgba(0,0,0,0.7);margin-left:0px" target="blank">Follow us on <br> <a href="" class="twlink" target="blank">Twitter</a>, <a href="" class="twlink">Vimeo</a> or <a href="" class="fblink" target="blank">Facebook</a></p> 
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="/static/hackv5/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/hackv5/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

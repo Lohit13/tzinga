@@ -1,0 +1,263 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TZINGA - Byld Hackathon v5 </title>
+    <script>
+        $('input[type="file"]').inputfile({
+        uploadText: '<span class="glyphicon glyphicon-upload"></span> Select a file',
+        removeText: '<span class="glyphicon glyphicon-trash"></span>',
+        restoreText: '<span class="glyphicon glyphicon-remove"></span>',
+         
+        uploadButtonClass: 'btn btn-primary',
+        removeButtonClass: 'btn btn-default'
+        });
+    </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'hackv5/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'hackv5/css/dc.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'hackv5/css/landing-page.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'hackv5/font-awesome-4.1.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- changes !-->
+    <link href="http://vjs.zencdn.net/4.7/video-js.css" rel="stylesheet">
+	<script href="http://vjs.zencdn.net/4.7/video.js"></script>
+	<style type="text/css">
+	  .vjs-default-skin { color: #fdfcfc; }
+	  .vjs-default-skin .vjs-play-progress,
+	  .vjs-default-skin .vjs-volume-level { background-color: #ebf2f5 }
+	  .vjs-default-skin .vjs-control-bar,
+	  .vjs-default-skin .vjs-big-play-button { background: rgba(230,204,204,0.14) }
+	  .vjs-default-skin .vjs-slider { background: rgba(230,204,204,0.04666666666666667) }
+	  .vjs-default-skin .vjs-control-bar { font-size: 68% }
+	</style>
+	<!-- changes !-->
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" >
+        <div class="container" >
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header" >
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/hackv5/" style="letter-spacing:2px">TZINGA</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="color:#ffffff;">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">Attendance</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/hackv5/mess/">Mess</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Header -->
+    <!-- /.intro-header -->
+
+    <!-- Page Content -->
+<div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    
+                    <div class="clearfix"></div>
+                    <br>
+                    <p style="text-align:center;font-size:22px;font-weight:400;letter-spacing:2px;color:#888;">VISUALISING ATTENDANCE USING WEEKLY BASED GRAPH.</p>
+                    
+                   
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+
+<div id="test" style="margin-top:20px;padding-left:45px;"></div>
+
+
+<script type="text/javascript" src="/static/hackv5/js/d3.js"></script>
+<script type="text/javascript" src="/static/hackv5/js/crossfilter.js"></script>
+<script type="text/javascript" src="/static/hackv5/js/dc.js"></script>
+<script type="text/javascript">
+
+var chart = dc.seriesChart("#test");
+var ndx, runDimension, runGroup;
+
+d3.csv("/static/hackv5/abcdef.csv", function(error, experiments) {
+
+  ndx = crossfilter(experiments);
+  runDimension = ndx.dimension(function(d) {return [+d.Expt, +d.Run]; });
+  runGroup = runDimension.group().reduceSum(function(d) { return +d.Speed; });
+
+  chart
+    .width(1168)
+    .height(480)
+    .chart(function(c) { return dc.lineChart(c).interpolate('basis'); })
+    .x(d3.scale.linear().domain([0,26]))
+    .brushOn(false)
+    .yAxisLabel("Attendance")
+    .xAxisLabel("Week")
+    .elasticY(true)
+    .dimension(runDimension)
+    .group(runGroup)
+    .mouseZoomable(true)
+    .seriesAccessor(function(d) {return "Expt: " + d.key[0];})
+    .keyAccessor(function(d) {return +d.key[1];})
+    .valueAccessor(function(d) {return +d.value;})
+    .legend(dc.legend().x(350).y(350).itemHeight(13).gap(5).horizontal(1).legendWidth(140).itemWidth(70));
+  chart.yAxis().tickFormat(function(d) {return d3.format(',d')(d);});
+  chart.margins().left += 20;
+  chart.margins().bottom += 20;
+
+  dc.renderAll();
+
+});
+
+function load_button(file) {
+    return function load_it() {
+        d3.csv(file, function(error, experiments) {
+            ndx.remove();
+            ndx.add(experiments);
+            dc.redrawAll();
+        });
+    };
+}
+
+var button1 = load_button("/static/hackv5/abcdef.csv"),
+    button2 = load_button("/static/hackv5/morley2.csv"),
+    button3 = load_button("/static/hackv5/morley3.csv");
+
+</script>
+<div class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+            
+        </div>
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+
+        <!-- /.container -->
+    <!-- /.banner -->
+    <!-- file upload form -->
+    <div class="content-section-a" style="background-color:#e2e4e6">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <br>
+                    <br>
+                    <p style="font-size:24px">Real Time Graph</p>
+                    <br>
+                    <br>
+                    <form id="upload_form" action="{% url 'attendence' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="col-sm-4" style="margin-bottom:40px" >
+                            <div class="input-group input-group-lg" style="width:100%;height:28px">
+                                <label for="col1" style="font-size:20px">Course Code :</label>
+                                <input type="text" id="col1" class="form-control" name="firstname1" style="border-radius:5px;width:100%;font-size:28px;padding:5px;" id='firstname1' required>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" style="margin-bottom:40px">
+                            <div class="input-group input-group-lg" style="width:100%;height:28px">
+                                <label for="col3" style="font-size:20px">Week :</label>
+                                <input type="text" id="col2" class="form-control" name="firstname2" style="border-radius:5px;width:100%;font-size:28px;padding:5px;" id='firstname2' required>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" style="margin-bottom:40px">
+                            <div class="input-group input-group-lg" style="width:100%;height:28px">
+                                <label for="col3" style="font-size:20px">Attendence : </label>
+                                <input type="text" id="col3" class="form-control" name="firstname3" style="border-radius:5px;width:100%;font-size:28px;padding:5px;" id='firstname3' required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default" style="width:20%;height:50px;margin-left:15px">Submit</button>
+                        <br>
+                        <br>
+                    </form>
+                    <br>
+                    <ul class="nav nav-pills" style="margin-left:1.3%">
+                      <li class="active" style="width:400px;font-weight:800;font-size:22px;text-align:center"><a href="http://www.ted.com/talks/pranav_mistry_the_thrilling_potential_of_sixthsense_technology" target="blank">Next Generation of Visualisation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                  <p style="font-size:16px;font-weight:400;letter-spacing:2px;color:#888"><font style="color:rgba(0,0,0,0.7)">+91-8800817045</font> <br><a href="" class="maillink" target="blank">hello@tzinga.com</a><br><a href="" class="maillink" target="blank">hello@olalala.com</a> </p>
+                </div>
+                <div style="margin-left:40px;" class="col-lg-1"></div>
+                <div class="col-lg-5">
+                  <p style="font-size:16px;font-weight:400;letter-spacing:2px;color:rgba(0,0,0,0.7);">
+					C-417, Boys Hostel, IIIT - Delhi <br>Okhla Phase -3  Industrial area,<br>
+					New Delhi, India 110020</p>
+                </div>
+                
+                <div class="col-lg-2">
+                  <p style="font-size:16px;font-weight:400;letter-spacing:1px;color:rgba(0,0,0,0.7);margin-left:0px" target="blank">Follow us on <br> <a href="" class="twlink" target="blank">Twitter</a>, <a href="" class="twlink">Vimeo</a> or <a href="" class="fblink" target="blank">Facebook</a></p> 
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="/static/hackv5/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/hackv5/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
